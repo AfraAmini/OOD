@@ -52,7 +52,6 @@ public class loginForm {
 
 	private void createEvents() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	private void createComponents() {
