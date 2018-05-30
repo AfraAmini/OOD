@@ -2,22 +2,30 @@ package UI.EmployeeUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by parishad on 5/27/18.
  */
-public class ShowEvaluatedEmployees extends JPanel {
+public class ShowEvaluatedEmployees extends EmployeeMainFrame {
     private JTable table;
-
+    private JPanel panel;
     public ShowEvaluatedEmployees() {
         super();
-        GroupLayout groupLayout = new GroupLayout(this);
-        this.setLayout(groupLayout);
-        createComponents(groupLayout);
-    }
+//        createComponents();
 
-    private void createComponents(GroupLayout groupLayout) {
-        this.setLayout(groupLayout);
+    }
+    public JPanel getPanel(){
+        return panel;
+    }
+    public void cancel(){
+
+    }
+    private void createComponents() {
+        panel= new JPanel();
+        GroupLayout groupLayout = new GroupLayout(panel);
+        panel.setLayout(groupLayout);
 
         JScrollPane scrollPane = new JScrollPane();
 
@@ -26,6 +34,11 @@ public class ShowEvaluatedEmployees extends JPanel {
 
         JButton button_1 = new JButton("لغو عملیات");
         button_1.setForeground(UIManager.getColor("Button.select"));
+        button_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(groupLayout.createSequentialGroup()
@@ -64,5 +77,12 @@ public class ShowEvaluatedEmployees extends JPanel {
 
         table = new JTable(data, columnNames);
         scrollPane.setViewportView(table);
+    }
+//    @Override
+    public void setVisible(boolean visible){
+        createComponents();
+        System.out.println(panel.getLayout());
+        super.getFrame().getContentPane().add(panel);
+        super.getFrame().getContentPane().validate();
     }
 }

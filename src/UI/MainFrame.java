@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by parishad on 5/27/18.
  */
-public class MainFrame {
+public class MainFrame implements Visibility{
     private JFrame frame;
     private JPanel panel;
     private JMenuBar menuBar;
@@ -22,7 +22,9 @@ public class MainFrame {
     public JFrame getFrame() {
         return frame;
     }
-
+    public void setPanel(JPanel panel){
+        this.panel=panel;
+    }
     public void changePanel(JPanel next){
         frame.getContentPane().remove(panel);
         frame.getContentPane().add(next);
@@ -59,5 +61,10 @@ public class MainFrame {
 
         menuItem = new JMenuItem("خروج از سامانه");
         menuBar.add(menuItem);
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        frame.setVisible(visible);
     }
 }

@@ -39,7 +39,13 @@ public class EmployeeMainFrame extends MainFrame {
             }
         });
     }
-
+    private void customYeganeh(){
+        getFrame().getContentPane().remove(getPanel());
+        System.out.println("hereee");
+        ShowEvaluatedEmployees showEvaluatedEmployees = new ShowEvaluatedEmployees();
+        super.setPanel(showEvaluatedEmployees.getPanel());
+        showEvaluatedEmployees.setVisible(true);
+    }
     private void createEvents() {
         menuItem_1.addActionListener(new ActionListener() {
             @Override
@@ -53,8 +59,11 @@ public class EmployeeMainFrame extends MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ShowEvaluatedEmployees showEvaluatedEmployees = new ShowEvaluatedEmployees();
-                changePanel(showEvaluatedEmployees);
+//                getFrame().getContentPane().remove(getPanel());
+//                showEvaluatedEmployees.setVisible(true);
+//                changePanel(showEvaluatedEmployees.getPanel());
                 getFrame().setTitle("مشاهده‌ی کارمندان مورد ارزیابی");
+                customYeganeh();
             }
         });
     }
