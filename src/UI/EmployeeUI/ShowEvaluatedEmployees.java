@@ -81,7 +81,7 @@ public class ShowEvaluatedEmployees extends EmployeeMainFrame {
 //    @Override
     public void setVisible(boolean visible){
         createComponents();
-        System.out.println(panel.getLayout());
+//        System.out.println(panel.getLayout());
         super.getFrame().getContentPane().add(panel);
         super.getFrame().getContentPane().validate();
     }
