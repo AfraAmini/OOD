@@ -40,10 +40,11 @@ public class EmployeeMainFrame extends MainFrame {
         });
     }
     private void customYeganeh(){
-        getFrame().getContentPane().remove(getPanel());
+        getFrame().getContentPane().remove(super.getPanel());
+        getFrame().validate();
+        getFrame().repaint();
         System.out.println("hereee");
         ShowEvaluatedEmployees showEvaluatedEmployees = new ShowEvaluatedEmployees();
-        super.setPanel(showEvaluatedEmployees.getPanel());
         showEvaluatedEmployees.setVisible(true);
     }
     private void createEvents() {
@@ -58,7 +59,7 @@ public class EmployeeMainFrame extends MainFrame {
         menuItem_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShowEvaluatedEmployees showEvaluatedEmployees = new ShowEvaluatedEmployees();
+//                ShowEvaluatedEmployees showEvaluatedEmployees = new ShowEvaluatedEmployees();
 //                getFrame().getContentPane().remove(getPanel());
 //                showEvaluatedEmployees.setVisible(true);
 //                changePanel(showEvaluatedEmployees.getPanel());

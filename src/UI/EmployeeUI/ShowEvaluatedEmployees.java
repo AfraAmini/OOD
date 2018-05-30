@@ -84,5 +84,7 @@ public class ShowEvaluatedEmployees extends EmployeeMainFrame {
 //        System.out.println(panel.getLayout());
         super.getFrame().getContentPane().add(panel);
         super.getFrame().getContentPane().validate();
+        super.setPanel(panel);
+        super.getFrame().getContentPane().repaint();
     }
 }
