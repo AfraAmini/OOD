@@ -1,5 +1,8 @@
 package UI.ManagerUI;
 
+import UI.MainFrame;
+import UI.Visibility;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,44 +11,50 @@ import java.awt.event.ActionListener;
 /**
  * Created by parishad on 5/27/18.
  */
-public class AddEvaluationPanel extends JPanel {
+public class AddEvaluationPanel implements Visibility{
+    private JPanel panel;
     private JEditorPane responsibilitiesEditorPanel;
-    private JButton btnAdd;
-    private JButton btnCancel;
+    private JButton addBtn;
+    private JButton cancelBtn;
 
-    public AddEvaluationPanel() {
+    public AddEvaluationPanel(){
         super();
-        GroupLayout groupLayout = new GroupLayout(this);
-        this.setLayout(groupLayout);
-        createComponents(groupLayout);
+        createComponents();
+        createEvents();
     }
-
-    private void createComponents(GroupLayout groupLayout) {
-        this.setLayout(groupLayout);
+    private void createEvents(){
+        cancelBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                panel.setVisible(false);
+                MainFrame.getInstance().getFrame().setTitle("پنل کاربری");
+            }
+        });
+    }
+    private void createComponents() {
+        panel = new JPanel();
+        GroupLayout groupLayout = new GroupLayout(panel);
+        panel.setLayout(groupLayout);
+        panel.setLayout(groupLayout);
 
         JLabel lblResponsibilities = new JLabel("ماهیت معیار");
 
         responsibilitiesEditorPanel = new JEditorPane();
 
-        btnAdd = new JButton("اضافه کن");
-        btnAdd.setForeground(new Color(0, 128, 0));
-        btnAdd.setBackground(new Color(255, 255, 255));
+        addBtn = new JButton("اضافه کن");
+        addBtn.setForeground(new Color(0, 128, 0));
 
-        btnCancel = new JButton("لغو عملیات");
-        btnCancel.setForeground(new Color(255, 20, 147));
-        btnCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
+        cancelBtn = new JButton("لغو عملیات");
+        cancelBtn.setForeground(new Color(255, 20, 147));
+
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addGroup(groupLayout.createSequentialGroup()
                                 .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(114)
-                                                .addComponent(btnAdd)
+                                                .addComponent(addBtn)
                                                 .addGap(107)
-                                                .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(cancelBtn, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(23)
                                                 .addComponent(lblResponsibilities)
@@ -65,9 +74,21 @@ public class AddEvaluationPanel extends JPanel {
                                                 .addComponent(responsibilitiesEditorPanel, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(27)
                                                 .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(btnAdd)
-                                                        .addComponent(btnCancel))))
+                                                        .addComponent(addBtn)
+                                                        .addComponent(cancelBtn))))
                                 .addContainerGap(194, Short.MAX_VALUE))
         );
     }
+
+    @Override
+    public void setVisible(Boolean visible) {
+        if(visible){
+            MainFrame.getInstance().getFrame().getContentPane().add(panel);
+            MainFrame.getInstance().getFrame().validate();
+            MainFrame.getInstance().setPanel(panel);
+        }else{
+            MainFrame.getInstance().getFrame().getContentPane().remove(panel);
+        }
+    }
+
 }

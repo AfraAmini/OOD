@@ -1,5 +1,7 @@
 package UI;
 
+import UI.EmployeeUI.ShowEvaluationResultPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,49 +10,38 @@ import java.awt.event.ActionListener;
 /**
  * Created by parishad on 5/27/18.
  */
-public class MainFrame implements Visibility{
-    private JFrame frame;
+public class MainFrame{
+    private static MainFrame mainFrame;
     private JPanel panel;
+    private JFrame frame;
     private JMenuBar menuBar;
     private JMenuItem menuItem;
 
 
-    public MainFrame (){
+    private MainFrame(){
         createComponents();
     }
-
+    public static MainFrame getInstance(){
+        if(mainFrame == null){
+            mainFrame = new MainFrame();
+        }
+        return mainFrame;
+    }
     public JFrame getFrame() {
         return frame;
     }
-    public void setPanel(JPanel panel){
-        this.panel=panel;
-    }
-    @Override
-    public void changePanel(JPanel next){
-        frame.getContentPane().remove(panel);
-        frame.getContentPane().add(next);
-        frame.validate();
-        panel = next;
-    }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MainFrame window = new MainFrame();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    private void createEvents(){
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
 
-    public Container getPanel(){
-        return panel;
-    }
-
     private void createComponents() {
+        panel= new JPanel();
         frame = new JFrame();
         frame.setBounds(100, 100, 577, 465);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,9 +50,11 @@ public class MainFrame implements Visibility{
 
         menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
-
-        menuItem = new JMenuItem("خروج از سامانه");
-        menuBar.add(menuItem);
+        }
+    public void setPanel(JPanel jPanel){
+        this.panel=jPanel;
     }
-
+    public JPanel getPanel(){
+        return panel;
+    }
 }

@@ -1,8 +1,7 @@
 package UI.EmployeeUI;
 
 import UI.MainFrame;
-import UI.ManagerUI.AddUserPanel;
-
+import UI.LoginForm;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,28 +10,27 @@ import java.awt.event.ActionListener;
 /**
  * Created by parishad on 5/27/18.
  */
-public class EmployeeMainFrame extends MainFrame {
-    private JMenuItem menuItem_1;
-    private JMenuItem menuItem_2;
-    private JMenuItem menuItem_3;
+public class EmployeeMainFrame{
+    private JFrame frame;
+    private JMenuItem evalationResultMenuItem;
+    private JMenuItem evaluatedEmployeesMenuItem;
+    private JMenuItem evaluationMenuItem;
+    private JMenuItem logoutMenuItem;
 
     public EmployeeMainFrame(){
-        super();
-        getFrame().setTitle("پنل کاربری کارمند");
+        frame=MainFrame.getInstance().getFrame();
+        frame.setTitle("پنل کاربری کارمند");;
         createComponents();
         createEvents();
     }
 
-    public JFrame getFrame() {
-        return super.getFrame();
-    }
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     EmployeeMainFrame window = new EmployeeMainFrame();
-                    window.getFrame().setVisible(true);
+                    window.frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -40,38 +38,62 @@ public class EmployeeMainFrame extends MainFrame {
         });
     }
     private void createEvents() {
-        menuItem_1.addActionListener(new ActionListener() {
+        logoutMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginForm loginForm = new LoginForm();
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                frame.setTitle("ورود کاربر");
+                loginForm.setVisible(true);
+            }
+        });
+        evalationResultMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ShowEvaluationResultPanel showEvaluationResultPanel = new ShowEvaluationResultPanel();
-                getFrame().setTitle("مشاهده‌ی ارزیابی‌های انجام شده");
-                changePanel(showEvaluationResultPanel.getPanel());
+                frame.setTitle("مشاهده‌ی ارزیابی‌های انجام شده");
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                showEvaluationResultPanel.setVisible(true);
             }
         });
-        menuItem_2.addActionListener(new ActionListener() {
+        evaluatedEmployeesMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getFrame().setTitle("مشاهده‌ی کارمندان مورد ارزیابی");
+                frame.setTitle("مشاهده‌ی کارمندان مورد ارزیابی");
                 ShowEvaluatedEmployees showEvaluatedEmployees = new ShowEvaluatedEmployees();
-                changePanel(showEvaluatedEmployees.getPanel());
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                showEvaluatedEmployees.setVisible(true);
+            }
+        });
+
+        evaluationMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setTitle("انتخاب کارمند برای ارزیابی");
+                ShowEmployees showEmployees = new ShowEmployees();
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                showEmployees.setVisible(true);
             }
         });
     }
 
     private void createComponents() {
-        JFrame frame = getFrame();
         JMenuBar menuBar = frame.getJMenuBar();
 
-        menuItem_1 = new JMenuItem("مشاهده ارزیابی‌های انجام شده");
-        menuBar.add(menuItem_1);
+        logoutMenuItem = new JMenuItem("خروج از سامانه");
+        menuBar.add(logoutMenuItem);
 
-        menuItem_2 = new JMenuItem("مشاهده کارمندان مورد ارزیابی");
+        evalationResultMenuItem = new JMenuItem("مشاهده ارزیابی‌های انجام شده");
+        menuBar.add(evalationResultMenuItem);
+
+        evaluatedEmployeesMenuItem = new JMenuItem("مشاهده کارمندان مورد ارزیابی");
 //        menuItem_2.setEnabled(false); //TODO
-        menuBar.add(menuItem_2);
+        menuBar.add(evaluatedEmployeesMenuItem);
 
-        menuItem_3 = new JMenuItem("ارزیابی کارمندان");
-//        menuItem_3.setEnabled(false);
-        menuBar.add(menuItem_3);
+        evaluationMenuItem = new JMenuItem("ارزیابی کارمندان");
+//        menuItem_3.setEnabled(false); //TODO
+        menuBar.add(evaluationMenuItem);
+
     }
-
+    public JFrame getFrame(){return frame;}
 }

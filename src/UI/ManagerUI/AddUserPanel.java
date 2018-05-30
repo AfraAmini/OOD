@@ -1,5 +1,8 @@
 package UI.ManagerUI;
 
+import UI.MainFrame;
+import UI.Visibility;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,27 +11,27 @@ import java.awt.event.ActionListener;
 /**
  * Created by parishad on 5/27/18.
  */
-public class AddUserPanel extends JPanel {
+public class AddUserPanel implements Visibility {
     private JTextField firstNameTextField;
     private JTextField lastNameTextField;
     private JTextField IDNumberTextField;
     private JTextField emailTextField;
     private JEditorPane responsibilitiesEditorPane;
-    private JButton btnAdd;
-    private JButton btnCancel;
+    private JButton addBtn;
+    private JButton cancelBtn;
     private JLabel unitLabel;
     private JTextField unitTextField;
+    private JPanel panel;
 
     public AddUserPanel() {
         super();
-        GroupLayout groupLayout = new GroupLayout(this);
-        this.setLayout(groupLayout);
-        createComponents(groupLayout);
+        createComponents();
     }
 
-    private void createComponents(GroupLayout groupLayout) {
-
-        this.setLayout(groupLayout);
+    private void createComponents() {
+        panel = new JPanel();
+        GroupLayout groupLayout = new GroupLayout(panel);
+        panel.setLayout(groupLayout);
 
         JLabel firstNameLabel = new JLabel("نام");
 
@@ -54,13 +57,12 @@ public class AddUserPanel extends JPanel {
 
         responsibilitiesEditorPane = new JEditorPane();
 
-        btnAdd = new JButton("اضافه کن");
-        btnAdd.setForeground(new Color(0, 128, 0));
-        btnAdd.setBackground(new Color(255, 255, 255));
+        addBtn = new JButton("اضافه کن");
+        addBtn.setForeground(new Color(0, 128, 0));
 
-        btnCancel = new JButton("لغو عملیات");
-        btnCancel.setForeground(new Color(255, 20, 147));
-        btnCancel.addActionListener(new ActionListener() {
+        cancelBtn = new JButton("لغو عملیات");
+        cancelBtn.setForeground(new Color(255, 20, 147));
+        cancelBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             }
         });
@@ -109,9 +111,9 @@ public class AddUserPanel extends JPanel {
                                 .addGap(14))
                         .addGroup(GroupLayout.Alignment.TRAILING, groupLayout.createSequentialGroup()
                                 .addContainerGap(152, Short.MAX_VALUE)
-                                .addComponent(btnAdd)
+                                .addComponent(addBtn)
                                 .addGap(76)
-                                .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelBtn, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                                 .addGap(146))
         );
         groupLayout.setVerticalGroup(
@@ -147,9 +149,19 @@ public class AddUserPanel extends JPanel {
                                                 .addComponent(responsibilitiesEditorPane, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                                 .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(btnCancel)
-                                                        .addComponent(btnAdd))
+                                                        .addComponent(cancelBtn)
+                                                        .addComponent(addBtn))
                                                 .addGap(15))))
         );
+    }
+    @Override
+    public void setVisible(Boolean visible) {
+        if(visible){
+            MainFrame.getInstance().getFrame().getContentPane().add(panel);
+            MainFrame.getInstance().getFrame().validate();
+            MainFrame.getInstance().setPanel(panel);
+        }else{
+            MainFrame.getInstance().getFrame().getContentPane().remove(panel);
+        }
     }
 }

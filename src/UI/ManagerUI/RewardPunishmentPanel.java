@@ -1,5 +1,8 @@
 package UI.ManagerUI;
 
+import UI.MainFrame;
+import UI.Visibility;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,33 +11,34 @@ import java.awt.event.ActionListener;
 /**
  * Created by parishad on 5/27/18.
  */
-public class RewardPunishmentPanel extends JPanel {
-    private JButton btnAdd;
-    private JButton btnCancel;
-    private final ButtonGroup buttonGroup;
+public class RewardPunishmentPanel implements Visibility {
+    private JPanel panel;
+    private JButton addBtn;
+    private JButton cancelBtn;
 
-    public RewardPunishmentPanel() {
-        super();
-        buttonGroup = new ButtonGroup();
-        GroupLayout groupLayout = new GroupLayout(this);
-        this.setLayout(groupLayout);
-        createComponents(groupLayout);
+    public RewardPunishmentPanel(){
+        createComponents();
+        createEvents();
     }
 
-    private void createComponents(GroupLayout groupLayout) {
-        this.setLayout(groupLayout);
+    private void createEvents() {
+    }
 
-        btnAdd = new JButton("ثبت روش‌ها");
-        btnAdd.addActionListener(new ActionListener() {
+    private void createComponents() {
+        panel = new JPanel();
+        GroupLayout groupLayout = new GroupLayout(panel);
+        panel.setLayout(groupLayout);
+
+        addBtn = new JButton("ثبت روش‌ها");
+        addBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             }
         });
-        btnAdd.setForeground(new Color(0, 128, 0));
-        btnAdd.setBackground(new Color(255, 255, 255));
+        addBtn.setForeground(new Color(0, 128, 0));
 
-        btnCancel = new JButton("لغو عملیات");
-        btnCancel.setForeground(new Color(255, 20, 147));
-        btnCancel.addActionListener(new ActionListener() {
+        cancelBtn = new JButton("لغو عملیات");
+        cancelBtn.setForeground(new Color(255, 20, 147));
+        cancelBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             }
         });
@@ -78,9 +82,9 @@ public class RewardPunishmentPanel extends JPanel {
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(GroupLayout.Alignment.TRAILING, groupLayout.createSequentialGroup()
                                 .addContainerGap(149, Short.MAX_VALUE)
-                                .addComponent(btnAdd)
+                                .addComponent(addBtn)
                                 .addGap(122)
-                                .addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelBtn, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                                 .addGap(137))
         );
         groupLayout.setVerticalGroup(
@@ -95,9 +99,20 @@ public class RewardPunishmentPanel extends JPanel {
                                         .addComponent(label, GroupLayout.Alignment.LEADING))
                                 .addGap(33)
                                 .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btnCancel)
-                                        .addComponent(btnAdd))
+                                        .addComponent(cancelBtn)
+                                        .addComponent(addBtn))
                                 .addContainerGap(150, Short.MAX_VALUE))
         );
+    }
+
+    @Override
+    public void setVisible(Boolean visible) {
+        if(visible){
+            MainFrame.getInstance().getFrame().getContentPane().add(panel);
+            MainFrame.getInstance().getFrame().validate();
+            MainFrame.getInstance().setPanel(panel);
+        }else{
+            MainFrame.getInstance().getFrame().getContentPane().remove(panel);
+        }
     }
 }

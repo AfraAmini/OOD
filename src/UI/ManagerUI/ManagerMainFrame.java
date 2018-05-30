@@ -1,5 +1,6 @@
 package UI.ManagerUI;
 
+import UI.LoginForm;
 import UI.MainFrame;
 
 import javax.swing.*;
@@ -10,29 +11,27 @@ import java.awt.event.ActionListener;
 /**
  * Created by parishad on 5/27/18.
  */
-public class ManagerMainFrame extends MainFrame {
-    private JMenu menu;
-    private JMenuItem menuItem_5;
-    private JMenuItem menuItem_6;
-    private JMenuItem menuItem_7;
-    private JMenu menu_1;
-    private JMenuItem menuItem_1;
-    private JMenuItem menuItem_2;
-    private JMenuItem menuItem_4;
-    private JMenu menu_2;
-//    private JMenuItem menuItem_3;
-//    private JMenuItem menuItem_8;
-//    private JMenuItem menuItem_9;
+public class ManagerMainFrame {
+    private JFrame frame;
+    private JMenu evaluationMenu;
+    private JMenuItem logoutMenuItem;
+    private JMenuItem addEvaluationMenuItem;
+    private JMenuItem categorizeMenuItem;
+    private JMenuItem setPunishmentRewardMenuItem;
+    private JMenu addEmployeeMenu;
+    private JMenuItem addUnitManagerMenuItem;
+    private JMenuItem addEmployeeMenuItem;
+    private JMenuItem addEvaluatorToEvaluationMenuItem;
 
     public ManagerMainFrame(){
-        super();
-        getFrame().setTitle("پنل کاربری مدیر سامانه");
+        frame=MainFrame.getInstance().getFrame();
+        frame.setTitle("پنل کاربری مدیر سامانه");
         createComponents();
         createEvents();
     }
 
     public JFrame getFrame() {
-        return super.getFrame();
+        return frame;
     }
 
     public static void main(String[] args) {
@@ -40,6 +39,7 @@ public class ManagerMainFrame extends MainFrame {
             public void run() {
                 try {
                     ManagerMainFrame window = new ManagerMainFrame();
+                    MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
                     window.getFrame().setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -49,52 +49,68 @@ public class ManagerMainFrame extends MainFrame {
     }
 
     private void createEvents() {
-        menuItem_1.addActionListener(new ActionListener() {
+
+        logoutMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginForm loginForm = new LoginForm();
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                frame.setTitle("ورود کاربر");
+                loginForm.setVisible(true);
+            }
+        });
+        addUnitManagerMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddUnitManagerPanel addUnitManagerPanel = new AddUnitManagerPanel();
-                changePanel(addUnitManagerPanel);
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                addUnitManagerPanel.setVisible(true);
                 getFrame().setTitle("ثبت مدیر بخش جدید");
             }
         });
 
-        menuItem_2.addActionListener(new ActionListener() {
+        addEmployeeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddUserPanel addUserPanel = new AddUserPanel();
-                changePanel(addUserPanel);
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                addUserPanel.setVisible(true);
                 getFrame().setTitle("ثبت کارمند جدید");
             }
         });
-        menuItem_4.addActionListener(new ActionListener() {
+        addEvaluatorToEvaluationMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddEvaluatorPanel addEvaluatorPanel = new AddEvaluatorPanel();
-                changePanel(addEvaluatorPanel);
-                getFrame().setTitle("ثبت ارزیاب جدید");
+                ShowCategories addEvaluatorPanel = new ShowCategories();
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                addEvaluatorPanel.setVisible(true);
+                getFrame().setTitle("انتخاب دسته ارزیابی");
             }
         });
-        menuItem_5.addActionListener(new ActionListener() {
+        addEvaluationMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddEvaluationPanel addEvaluationPanel = new AddEvaluationPanel();
-                changePanel(addEvaluationPanel);
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                addEvaluationPanel.setVisible(true);
                 getFrame().setTitle("افزودن معیار ارزیابی");
             }
         });
-        menuItem_6.addActionListener(new ActionListener() {
+        categorizeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CategorizePanel categorizePanel = new CategorizePanel();
-                changePanel(categorizePanel);
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                categorizePanel.setVisible(true);
                 getFrame().setTitle("دسته‌بندی معیار");
             }
         });
-        menuItem_7.addActionListener(new ActionListener() {
+        setPunishmentRewardMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RewardPunishmentPanel rewardPunishmentPanel = new RewardPunishmentPanel();
-                changePanel(rewardPunishmentPanel);
+                ShowEvaluations showEvaluations = new ShowEvaluations();
+                MainFrame.getInstance().getFrame().getContentPane().remove(MainFrame.getInstance().getPanel());
+                showEvaluations.setVisible(true);
                 getFrame().setTitle("تعیین روش تشویق و تنبیه");
             }
         });
@@ -104,40 +120,32 @@ public class ManagerMainFrame extends MainFrame {
         JFrame frame = getFrame();
         JMenuBar menuBar = frame.getJMenuBar();
 
-        menu_1 = new JMenu("ثبت کارمند جدید");
-        menuBar.add(menu_1);
+        logoutMenuItem = new JMenuItem("خروج از سامانه");
+        menuBar.add(logoutMenuItem);
 
-        menuItem_1 = new JMenuItem("ثبت مدیر بخش جدید");
-        menu_1.add(menuItem_1);
+        addEmployeeMenu = new JMenu("ثبت کارمند جدید");
+        menuBar.add(addEmployeeMenu);
 
-        menuItem_2 = new JMenuItem("ثبت کارمند جدید");
-        menu_1.add(menuItem_2);
+        addUnitManagerMenuItem = new JMenuItem("ثبت مدیر بخش جدید");
+        addEmployeeMenu.add(addUnitManagerMenuItem);
 
-        menu = new JMenu("اقدامات مربوط به معیارها");
-        menuBar.add(menu);
+        addEmployeeMenuItem = new JMenuItem("ثبت کارمند جدید");
+        addEmployeeMenu.add(addEmployeeMenuItem);
 
-        menuItem_5 = new JMenuItem("افزودن معیار ارزیابی");
-        menu.add(menuItem_5);
+        evaluationMenu = new JMenu("اقدامات مربوط به معیارها");
+        menuBar.add(evaluationMenu);
 
-        menuItem_6 = new JMenuItem("دسته بندی معیارها");
-        menu.add(menuItem_6);
+        addEvaluationMenuItem = new JMenuItem("افزودن معیار ارزیابی");
+        evaluationMenu.add(addEvaluationMenuItem);
 
-        menuItem_7 = new JMenuItem("تعیین روش تشویق و تنبیه");
-        menu.add(menuItem_7);
+        categorizeMenuItem = new JMenuItem("دسته بندی معیارها");
+        evaluationMenu.add(categorizeMenuItem);
 
-        menuItem_4 = new JMenuItem("افزودن ارزیاب به دسته ارزیابی");
-        menu.add(menuItem_4);
+        setPunishmentRewardMenuItem = new JMenuItem("تعیین روش تشویق و تنبیه");
+        evaluationMenu.add(setPunishmentRewardMenuItem);
 
-        menu_2 = new JMenu("اقدامات مربوط به درستی سنجی");
-        menuBar.add(menu_2);
-
-//        menuItem_3 = new JMenuItem("مشاهده درخواست‌های ارزیابی مجدد");
-//        menu_2.add(menuItem_3);
-//
-//        menuItem_8 = new JMenuItem("انتخاب ارزیاب برای ارزیابی مجدد");
-//        menu_2.add(menuItem_8);
-//
-//        menuItem_9 = new JMenuItem("تایید نهایی ارزیابی‌های مجدد");
-//        menu_2.add(menuItem_9);
+        addEvaluatorToEvaluationMenuItem = new JMenuItem("افزودن ارزیاب به دسته ارزیابی");
+        evaluationMenu.add(addEvaluatorToEvaluationMenuItem);
     }
+
 }

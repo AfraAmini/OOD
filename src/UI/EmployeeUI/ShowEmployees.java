@@ -1,33 +1,41 @@
-package UI.ManagerUI;
+package UI.EmployeeUI;
 
 import UI.MainFrame;
 import UI.Visibility;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by parishad on 5/27/18.
- */
-public class AddNewEvaluatorPanel implements Visibility {
-    private JButton addBtn;
-    private JButton cancelBtn;
-    private JPanel panel;
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
-    public AddNewEvaluatorPanel() {
+public class ShowEmployees implements Visibility {
+    private JPanel panel;
+    private JButton chooseBtn;
+    private JButton cancelBtn;
+
+    /**
+     * Create the application.
+     */
+    public ShowEmployees() {
         createComponents();
         createEvents();
     }
 
-    private void createEvents() {
-        addBtn.addActionListener(new ActionListener() {
+    public void createEvents() {
+        chooseBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                ShowCategories showCategories = new ShowCategories();
+                MainFrame.getInstance().getFrame().setTitle("مشاهده‌ی ارزیابی‌های انجام شده");
+                setVisible(false);
+                showCategories.setVisible(true);
             }
         });
         cancelBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                panel.setVisible(false);
             }
         });
     }
@@ -35,10 +43,9 @@ public class AddNewEvaluatorPanel implements Visibility {
     private void createComponents() {
         panel = new JPanel();
         GroupLayout groupLayout = new GroupLayout(panel);
-        panel.setLayout(groupLayout);
 
-        addBtn = new JButton("افزودن کارمند به لیست ارزیابان دسته");
-        addBtn.setForeground(new Color(0, 128, 0));
+        chooseBtn = new JButton("انتخاب کارمند برای ارزیابی");
+        chooseBtn.setForeground(new Color(0, 128, 0));
 
         cancelBtn = new JButton("لغو عملیات");
         cancelBtn.setForeground(new Color(255, 20, 147));
@@ -58,32 +65,36 @@ public class AddNewEvaluatorPanel implements Visibility {
 
         JScrollPane scrollPane = new JScrollPane();
         groupLayout.setHorizontalGroup(
-                groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                groupLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(groupLayout.createSequentialGroup()
                                 .addGap(30)
-                                .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
                                         .addGroup(groupLayout.createSequentialGroup()
-                                                .addComponent(addBtn)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(chooseBtn)
+                                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(cancelBtn, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
                                         .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 482, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(45, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
-                groupLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                groupLayout.createParallelGroup(Alignment.TRAILING)
                         .addGroup(groupLayout.createSequentialGroup()
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(addBtn)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(chooseBtn)
                                         .addComponent(cancelBtn))
                                 .addGap(261))
         );
 
         JTable table = new JTable(data, columnNames);
         scrollPane.setViewportView(table);
+        panel.setLayout(groupLayout);
     }
+
+    public JPanel getPanel(){return panel;}
+
     @Override
     public void setVisible(Boolean visible) {
         if(visible){

@@ -1,5 +1,8 @@
 package UI.EmployeeUI;
 
+import UI.MainFrame;
+import UI.Visibility;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by parishad on 5/27/18.
  */
-public class ShowEvaluationResultPanel extends EmployeeMainFrame  {
+public class ShowEvaluationResultPanel implements Visibility {
     private JTable table;
     private JPanel panel;
     private JButton cancelBtn;
@@ -19,11 +22,11 @@ public class ShowEvaluationResultPanel extends EmployeeMainFrame  {
         createEvents();
     }
 
-
     public void createEvents(){
         cancelBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 panel.setVisible(false);
+                MainFrame.getInstance().getFrame().setTitle("پنل کاربری");
             }
         });
 
@@ -36,7 +39,7 @@ public class ShowEvaluationResultPanel extends EmployeeMainFrame  {
         JScrollPane scrollPane = new JScrollPane();
 
         cancelBtn = new JButton("لغو عملیات");
-        cancelBtn.setForeground(UIManager.getColor("Button.select"));
+        cancelBtn.setForeground(new Color(255, 20, 147));
 
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -83,4 +86,15 @@ public class ShowEvaluationResultPanel extends EmployeeMainFrame  {
     }
 
     public JPanel getPanel(){return panel;}
+
+    @Override
+    public void setVisible(Boolean visible) {
+        if(visible){
+            MainFrame.getInstance().getFrame().getContentPane().add(panel);
+            MainFrame.getInstance().getFrame().validate();
+            MainFrame.getInstance().setPanel(panel);
+        }else{
+            MainFrame.getInstance().getFrame().getContentPane().remove(panel);
+        }
+    }
 }

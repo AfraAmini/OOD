@@ -3,30 +3,34 @@ package UI.ManagerUI;
 import UI.MainFrame;
 import UI.Visibility;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by parishad on 5/27/18.
- */
-public class CategorizePanel implements Visibility {
-    private JPanel panel;
-    private JButton addBtn;
-    private JButton cancelBtn;
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Font;
 
-    public CategorizePanel() {
+public class ShowEvaluations implements Visibility {
+    private JButton chooseBtn;
+    private JButton cancelBtn;
+    private JPanel panel;
+    /**
+     * Create the application.
+     */
+    public ShowEvaluations() {
         createComponents();
         createEvents();
     }
-    private void createEvents(){
-        addBtn.addActionListener(new ActionListener() {
+
+
+    private void createEvents() {
+        chooseBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                MainFrame.getInstance().getFrame().setTitle("دسته بندی یک معیار");
-                categorizeAEvaluation categorizeAEvaluation = new categorizeAEvaluation();
                 setVisible(false);
-                categorizeAEvaluation.setVisible(true);
+                RewardPunishmentPanel rewardPunishmentPanel= new RewardPunishmentPanel();
+                rewardPunishmentPanel.setVisible(true);
             }
         });
         cancelBtn.addActionListener(new ActionListener() {
@@ -35,7 +39,6 @@ public class CategorizePanel implements Visibility {
                 MainFrame.getInstance().getFrame().setTitle("پنل کاربری");
             }
         });
-
     }
 
     private void createComponents() {
@@ -43,8 +46,8 @@ public class CategorizePanel implements Visibility {
         GroupLayout groupLayout = new GroupLayout(panel);
         panel.setLayout(groupLayout);
 
-        addBtn = new JButton("انتخاب معیار");
-        addBtn.setForeground(new Color(0, 128, 0));
+        chooseBtn = new JButton("انتخاب معیار");
+        chooseBtn.setForeground(new Color(0, 128, 0));
 
         cancelBtn = new JButton("لغو عملیات");
         cancelBtn.setForeground(new Color(255, 20, 147));
@@ -68,28 +71,28 @@ public class CategorizePanel implements Visibility {
 
         JScrollPane scrollPane = new JScrollPane();
         groupLayout.setHorizontalGroup(
-                groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                groupLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(groupLayout.createSequentialGroup()
-                                .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(30)
                                                 .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 481, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(100)
-                                                .addComponent(addBtn)
+                                                .addComponent(chooseBtn)
                                                 .addGap(107)
                                                 .addComponent(cancelBtn, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(33, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
-                groupLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                groupLayout.createParallelGroup(Alignment.TRAILING)
                         .addGroup(groupLayout.createSequentialGroup()
                                 .addContainerGap(23, Short.MAX_VALUE)
                                 .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18)
-                                .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
                                         .addComponent(cancelBtn)
-                                        .addComponent(addBtn))
+                                        .addComponent(chooseBtn))
                                 .addGap(214))
         );
 
@@ -98,6 +101,7 @@ public class CategorizePanel implements Visibility {
     }
 
 
+    JPanel getPanel(){ return panel;}
     @Override
     public void setVisible(Boolean visible) {
         if(visible){

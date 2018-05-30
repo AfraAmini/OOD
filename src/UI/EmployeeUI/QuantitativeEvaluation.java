@@ -1,120 +1,88 @@
-package UI;
+package UI.EmployeeUI;
+
+import UI.MainFrame;
+import UI.Visibility;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class makeObjection {
+public class QuantitativeEvaluation implements Visibility {
+	private JPanel panel = new JPanel();
+	private JButton addBtn;
+	private JButton cancelBtn;
 
-	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					makeObjection window = new makeObjection();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public makeObjection() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public QuantitativeEvaluation() {
 		createComponent();
 		createEvents();
 	}
 
 	private void createEvents() {
-		// TODO Auto-generated method stub
+		addBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		cancelBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setVisible(false);
+				MainFrame.getInstance().getFrame().setTitle("پنل کاربری");
+			}
+		});
 		
 	}
 
 	private void createComponent() {
-		frame = new JFrame();
-		frame.setTitle("ارزیابی کارمند");
-		frame.setBounds(100, 100, 525, 323);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel = new JPanel();
+
+		addBtn = new JButton("ثبت ارزیابی");
+		addBtn.setForeground(new Color(0, 102, 0));
 		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		cancelBtn = new JButton("لغو عملیات");
+		cancelBtn.setForeground(UIManager.getColor("Button.select"));
 		
-		JMenuItem menuItem = new JMenuItem("خروج از سامانه");
-		menuBar.add(menuItem);
+		JLabel nameLabel = new JLabel("نام معیار");
 		
-		JMenuItem menuItem_1 = new JMenuItem("مشاهده کارمندان مورد ارزیابی");
-		menuBar.add(menuItem_1);
+		JLabel experienceLabel = new JLabel("تجربه");
 		
-		JMenuItem menuItem_2 = new JMenuItem("ارزیابی کارمندان");
-		menuBar.add(menuItem_2);
-		
-		JButton button = new JButton("ثبت ارزیابی");
-		button.setForeground(new Color(0, 102, 0));
-		
-		JButton button_1 = new JButton("لغو عملیات");
-		button_1.setForeground(UIManager.getColor("Button.select"));
-		
-		JLabel label = new JLabel("نام معیار");
-		
-		JLabel label_1 = new JLabel("تجربه");
-		
-		JLabel label_2 = new JLabel("روش کمی ارزیابی");
+		JLabel quantWayLabel = new JLabel("روش کمی ارزیابی");
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setEnabled(false);
 		textArea.setText("تعداد سال سابقه کار\n");
 		
-		JLabel label_3 = new JLabel("ارزیابی کمی");
+		JLabel quantLabel = new JLabel("ارزیابی کمی");
 		
 		JTextArea textArea_1 = new JTextArea();
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(panel);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(43)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(label_2)
+							.addComponent(quantWayLabel)
 							.addGap(18)
 							.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(label)
+							.addComponent(nameLabel)
 							.addGap(64)
-							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
+							.addComponent(experienceLabel, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-									.addComponent(button)
+									.addComponent(addBtn)
 									.addPreferredGap(ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-									.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+									.addComponent(cancelBtn, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+									.addComponent(quantLabel, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
 									.addComponent(textArea_1, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))))
 					.addGap(2147483259)
@@ -125,26 +93,26 @@ public class makeObjection {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(15)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label)
-						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+						.addComponent(nameLabel)
+						.addComponent(experienceLabel, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(26)
-							.addComponent(label_2)
+							.addComponent(quantWayLabel)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGap(47)
 									.addComponent(textArea_1, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGap(65)
-									.addComponent(label_3))))
+									.addComponent(quantLabel))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(18)
 							.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)))
 					.addGap(44)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_1)
-						.addComponent(button))
+						.addComponent(cancelBtn)
+						.addComponent(addBtn))
 					.addContainerGap(27, Short.MAX_VALUE))
 		);
 		
@@ -158,9 +126,18 @@ public class makeObjection {
 		"بهنام قادر", new Integer(3), new Boolean(true)},
 		
 		};
-		frame.getContentPane().setLayout(groupLayout);
+		panel.setLayout(groupLayout);
 		
 	}
-
+	@Override
+	public void setVisible(Boolean visible) {
+		if(visible){
+			MainFrame.getInstance().getFrame().getContentPane().add(panel);
+			MainFrame.getInstance().getFrame().validate();
+			MainFrame.getInstance().setPanel(panel);
+		}else{
+			MainFrame.getInstance().getFrame().getContentPane().remove(panel);
+		}
+	}
 
 }
