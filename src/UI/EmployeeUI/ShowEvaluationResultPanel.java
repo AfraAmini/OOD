@@ -2,37 +2,48 @@ package UI.EmployeeUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by parishad on 5/27/18.
  */
-public class ShowEvaluationResultPanel extends JPanel {
+public class ShowEvaluationResultPanel extends EmployeeMainFrame  {
     private JTable table;
+    private JPanel panel;
+    private JButton cancelBtn;
 
     public ShowEvaluationResultPanel() {
         super();
-        GroupLayout groupLayout = new GroupLayout(this);
-        this.setLayout(groupLayout);
-        createComponents(groupLayout);
+        createComponents();
+        createEvents();
     }
 
-    private void createComponents(GroupLayout groupLayout) {
-        this.setLayout(groupLayout);
 
+    public void createEvents(){
+        cancelBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                panel.setVisible(false);
+            }
+        });
+
+    }
+    private void createComponents() {
+        panel = new JPanel();
+        GroupLayout groupLayout = new GroupLayout(panel);
+        panel.setLayout(groupLayout);
+        panel.setLayout(groupLayout);
         JScrollPane scrollPane = new JScrollPane();
 
-        JButton button = new JButton("اعتراض به ارزیابی انتخابی");
-        button.setForeground(new Color(0, 102, 0));
+        cancelBtn = new JButton("لغو عملیات");
+        cancelBtn.setForeground(UIManager.getColor("Button.select"));
 
-        JButton button_1 = new JButton("لغو عملیات");
-        button_1.setForeground(UIManager.getColor("Button.select"));
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(GroupLayout.Alignment.TRAILING, groupLayout.createSequentialGroup()
                                 .addGap(43)
-                                .addComponent(button)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
-                                .addComponent(button_1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelBtn, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                                 .addGap(108))
                         .addGroup(groupLayout.createSequentialGroup()
                                 .addGap(15)
@@ -46,8 +57,8 @@ public class ShowEvaluationResultPanel extends JPanel {
                                 .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18)
                                 .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(button_1)
-                                        .addComponent(button))
+                                        .addComponent(cancelBtn)
+                                        )
                                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -70,4 +81,6 @@ public class ShowEvaluationResultPanel extends JPanel {
         table = new JTable(data, columnNames);
         scrollPane.setViewportView(table);
     }
+
+    public JPanel getPanel(){return panel;}
 }

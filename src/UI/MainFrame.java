@@ -25,6 +25,7 @@ public class MainFrame implements Visibility{
     public void setPanel(JPanel panel){
         this.panel=panel;
     }
+    @Override
     public void changePanel(JPanel next){
         frame.getContentPane().remove(panel);
         frame.getContentPane().add(next);
@@ -63,8 +64,4 @@ public class MainFrame implements Visibility{
         menuBar.add(menuItem);
     }
 
-    @Override
-    public void setVisible(boolean visible) {
-        frame.setVisible(visible);
-    }
 }

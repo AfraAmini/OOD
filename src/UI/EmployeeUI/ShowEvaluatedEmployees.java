@@ -11,15 +11,23 @@ import java.awt.event.ActionListener;
 public class ShowEvaluatedEmployees extends EmployeeMainFrame {
     private JTable table;
     private JPanel panel;
+    private JButton cancelBtn;
+    private JButton chooseBtn;
+
     public ShowEvaluatedEmployees() {
         super();
-//        createComponents();
-
+        createComponents();
+        createEvents();
     }
     public JPanel getPanel(){
         return panel;
     }
-    public void cancel(){
+    public void createEvents(){
+        cancelBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                panel.setVisible(false);
+            }
+        });
 
     }
     private void createComponents() {
@@ -29,16 +37,12 @@ public class ShowEvaluatedEmployees extends EmployeeMainFrame {
 
         JScrollPane scrollPane = new JScrollPane();
 
-        JButton button = new JButton("انتخاب کارمند");
-        button.setForeground(new Color(0, 102, 0));
+        chooseBtn = new JButton("انتخاب کارمند");
+        chooseBtn.setForeground(new Color(0, 102, 0));
 
-        JButton button_1 = new JButton("لغو عملیات");
-        button_1.setForeground(UIManager.getColor("Button.select"));
-        button_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        cancelBtn = new JButton("لغو عملیات");
+        cancelBtn.setForeground(UIManager.getColor("Button.select"));
 
-            }
-        });
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(groupLayout.createSequentialGroup()
@@ -47,9 +51,9 @@ public class ShowEvaluatedEmployees extends EmployeeMainFrame {
                                 .addContainerGap(25, Short.MAX_VALUE))
                         .addGroup(groupLayout.createSequentialGroup()
                                 .addGap(43)
-                                .addComponent(button)
+                                .addComponent(chooseBtn)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
-                                .addComponent(button_1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelBtn, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                                 .addGap(108))
         );
         groupLayout.setVerticalGroup(
@@ -59,8 +63,8 @@ public class ShowEvaluatedEmployees extends EmployeeMainFrame {
                                 .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18)
                                 .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(button)
-                                        .addComponent(button_1))
+                                        .addComponent(chooseBtn)
+                                        .addComponent(cancelBtn))
                                 .addContainerGap(102, Short.MAX_VALUE))
         );
 
@@ -77,14 +81,5 @@ public class ShowEvaluatedEmployees extends EmployeeMainFrame {
 
         table = new JTable(data, columnNames);
         scrollPane.setViewportView(table);
-    }
-//    @Override
-    public void setVisible(boolean visible){
-        createComponents();
-//        System.out.println(panel.getLayout());
-        super.getFrame().getContentPane().add(panel);
-        super.getFrame().getContentPane().validate();
-        super.setPanel(panel);
-        super.getFrame().getContentPane().repaint();
     }
 }
